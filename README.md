@@ -29,6 +29,10 @@ $ mix credo --strict
 4
 %{1 => 1, 2 => 2, 3 => 3}
 %{1 => 1, 2 => 2, 3 => 3, 4 => 4}
+> Enum.into(1..5, %{}, fn number -> {Integer.to_string(number), 0} end)
+%{"1" => 0, "2" => 0, "3" => 0, "4" => 0, "5" => 0}
+> Enum.into(1..5, %{}, &{Integer.to_string(&1), 0})
+%{"1" => 0, "2" => 0, "3" => 0, "4" => 0, "5" => 0}
 ```
 
 ## Resources
