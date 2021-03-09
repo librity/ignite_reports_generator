@@ -2,18 +2,14 @@ defmodule ReportsGenerator do
   def build(filename) do
     "data/#{filename}.csv"
     |> File.stream!()
-    # |> IO.inspect()
-    |> handle_file_read()
-    |> parse_content()
+    |> Enum.map(&parse_line/1)
   end
 
-  defp handle_file_read({:ok, content}), do: content
-  defp handle_file_read({:error, _reason}), do: "Error: file not found."
-
-  defp parse_content(content) do
-    content
-    |> String.split("\n")
-    # |> Stream.map(fn line -> String.split(line, ",") end)
-    |> Enum.map(fn line -> String.split(line, ",") end)
+  defp parse_line(line) do
+    line
+    |> String.trim()
+    |> String.split(",")
+    |> List.update_at(0, &String.to_integer/1)
+    |> List.update_at(2, &String.to_integer/1)
   end
 end

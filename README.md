@@ -17,6 +17,18 @@ $ mix credo --strict
 "Foobar"
 > [1, 2, 3] ++ [2, 3, 4]
 [1, 2, 3, 2, 3, 4]
+> Enum.reduce([1, 2, 3, 4], 0, fn element, accumulator -> element + accumulator end)
+10
+> Enum.reduce([1, 2, 3, 4], %{}, fn element, accumulator -> IO.inspect(element); IO.inspect(accumulator); Map.put(accumulator, element, element) end)
+1
+%{}
+2
+%{1 => 1}
+3
+%{1 => 1, 2 => 2}
+4
+%{1 => 1, 2 => 2, 3 => 3}
+%{1 => 1, 2 => 2, 3 => 3, 4 => 4}
 ```
 
 ## Resources
