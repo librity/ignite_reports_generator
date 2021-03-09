@@ -1,6 +1,8 @@
 defmodule ReportsGenerator do
   alias ReportsGenerator.Parser
 
+  @fields ["users", "food_items"]
+
   def build(filename) do
     Parser.call(filename)
     |> Enum.reduce(initialize_report(), &accumulate_fields/2)
@@ -25,12 +27,12 @@ defmodule ReportsGenerator do
     Map.put(food_items, item_name, previous + 1)
   end
 
-  defp previous_or_zero(nil), do: 0
-  defp previous_or_zero(number), do: number
+  defp previous_or_zero(map_value) when is_nil(map_value), do: 0
+  defp previous_or_zero(map_value) when is_number(map_value), do: map_value
 
-  defp fetch_greatest_buyer(%{"users" => users, "food_items" => _food_items}),
-    do: Enum.max_by(users, fn {_key, value} -> value end)
+  defp fetch_max_from_field(report, field) when field in @fields do
+    {:ok, Enum.max_by(report[field], fn {_key, value} -> value end)}
+  end
 
-  defp fetch_top_seller(%{"users" => _users, "food_items" => food_items}),
-    do: Enum.max_by(food_items, fn {_key, value} -> value end)
+  defp fetch_max_from_field(_report, _field), do: {:error, "Invalid field."}
 end
