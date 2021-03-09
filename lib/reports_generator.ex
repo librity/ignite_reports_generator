@@ -1,10 +1,14 @@
 defmodule ReportsGenerator do
   def build(filename) do
-    case File.read("data/#{filename}.csv") do
-      {:ok, content} -> parse_content(content)
-      {:error, reason} -> reason
-    end
+    "data/#{filename}.csv"
+    |> File.stream!()
+    # |> IO.inspect()
+    |> handle_file_read()
+    |> parse_content()
   end
+
+  defp handle_file_read({:ok, content}), do: content
+  defp handle_file_read({:error, _reason}), do: "Error: file not found."
 
   defp parse_content(content) do
     content
