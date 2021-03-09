@@ -10,6 +10,9 @@ $ mix deps.get
 $ mix credo gen.config
 $ mix credo
 $ mix credo --strict
+$ mix test
+$ mix test test/reports_generator/parser_test.exs
+$ mix test test/reports_generator/parser_test.exs:7
 ```
 
 ```elixir
@@ -43,6 +46,7 @@ $ mix credo --strict
 - https://github.com/rrrene/credo
 - https://dev.to/dnovais/aridade-de-uma-funcao-41mo
 - https://github.com/Microsoft/vscode-docs/blob/vnext/release-notes/v1_9.md#control-the-dimensions-of-new-windows
+- https://github.com/christopheradams/elixir_style_guide
 
 Recompile error:
 
