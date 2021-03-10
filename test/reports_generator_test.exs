@@ -2,7 +2,7 @@ defmodule ReportsGeneratorTest do
   use ExUnit.Case
 
   describe "build/1" do
-    test "should build and return a report from a .csv file" do
+    test "should build and return a report from a small .csv file" do
       file_name = "report_test"
       return = ReportsGenerator.build(file_name)
 

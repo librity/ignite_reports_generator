@@ -3,10 +3,17 @@ defmodule ReportsGenerator do
 
   @fields ["users", "food_items"]
 
+  def build_from_many(file_names) when not is_list(file_names) do
+    {:error, "Please provide a list of file names."}
+  end
+
   def build_from_many(file_names) do
-    file_names
-    |> Task.async_stream(&build/1)
-    |> Enum.reduce(initialize_report(), &merge_reports/2)
+    report =
+      file_names
+      |> Task.async_stream(&build/1)
+      |> Enum.reduce(initialize_report(), &merge_reports/2)
+
+    {:ok, report}
   end
 
   def build(file_name) do
