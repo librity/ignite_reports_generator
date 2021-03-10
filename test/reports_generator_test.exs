@@ -32,6 +32,15 @@ defmodule ReportsGeneratorTest do
     end
   end
 
+  describe "build_from_many/1" do
+    test "should return an error if argument isn't a string list" do
+      return = ReportsGenerator.build_from_many("bad")
+      expected = {:error, "Please provide a list of file names."}
+
+      assert expected == return
+    end
+  end
+
   describe "fetch_max_from_field/2" do
     test "should return the greatest buyer from 'users'" do
       file_name = "report_test"
