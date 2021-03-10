@@ -55,17 +55,14 @@ defmodule ReportsGenerator do
   end
 
   defp accumulate_users([user_id, _item_name, price], users) do
-    previous = previous_or_zero(users[user_id])
+    previous = Map.get(users, user_id, 0)
     Map.put(users, user_id, previous + price)
   end
 
   defp accumulate_food_items([_user_id, item_name, _price], food_items) do
-    previous = previous_or_zero(food_items[item_name])
+    previous = Map.get(food_items, item_name, 0)
     Map.put(food_items, item_name, previous + 1)
   end
-
-  defp previous_or_zero(map_value) when is_nil(map_value), do: 0
-  defp previous_or_zero(map_value) when is_number(map_value), do: map_value
 
   defp initialize_report, do: %{"users" => %{}, "food_items" => %{}}
   defp build_report(users, food_items), do: %{"users" => users, "food_items" => food_items}
