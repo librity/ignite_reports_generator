@@ -1,7 +1,6 @@
 # ReportsGenerator
 
-A simple module that calculates the size of a list with tail-call-optimized
-recursion.
+A simple Elixir program that generates customer sales reports from raw CSV data.
 
 ## Commands
 
