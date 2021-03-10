@@ -1,6 +1,6 @@
 defmodule ReportsGenerator.Parser do
-  def call(filename) do
-    "data/#{filename}.csv"
+  def call(file_name) do
+    "data/#{file_name}.csv"
     |> File.stream!()
     |> Stream.map(&parse_line/1)
   end
